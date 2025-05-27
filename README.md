@@ -32,4 +32,4 @@ npx expo start --tunnel
 
 ## Screenshots
 
-![App Screenshot](https://github.com/alex-silveira/projeto-de-extensao/blob/master/screenshots/menudistribuidoradebebidas.jpg?raw=true)
+![App Screenshot](https://github.com/alex-silveira/mdb/blob/main/screenshots/menudistribuidoradebebidas.jpg?raw=true)
