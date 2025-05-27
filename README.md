@@ -8,6 +8,7 @@ Projeto de menu para distribuidora de bebidas.
 ```bash
 Instalar o node
 Opcional: instalar e configurar o android studio
+Instalar o app Expo Go no celular
 ```
 ## Api do google sheet:
 
@@ -24,8 +25,7 @@ Adicionar acesso geral para qualquer pessoa com o link
 ## Executar os comandos:
 
 ```bash
-npx create-expo-app@latest --template
-**Selecionar Navigation TypeScript**
+npm i
 npx expo start --tunnel
 ```
 
