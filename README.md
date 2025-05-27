@@ -52,7 +52,7 @@ Adicione o json abaixo no arquivo **configspreadsheets.json**
 - Cadastro de todos os dados no banco de dados sqlite 
 - Sincronização dos dados da planilha com o banco de dados sqlite 
 - Listagem dos dados 
-- Filtro de busca do itens cadastrados 
+- Filtro de busca dos itens cadastrados 
 
 ## Stack utilizada
 
