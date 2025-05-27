@@ -5,14 +5,45 @@ Projeto de menu para distribuidora de bebidas.
 
 ## Instalação
 
+```bash
 Instalar o node
+Opcional: instalar e configurar o android studio
+```
+## Api do google sheet:
 
-Executar os comandos:
+```bash
+Crie um projeto do Google Cloud para seu app, extensão ou integração do Google Workspace.
+
+Ative a API do Google Sheet.
+
+Adicionar a planilha no https://docs.google.com/spreadsheets/
+
+Adicionar acesso geral para qualquer pessoa com o link
+```
+
+## Executar os comandos:
 
 ```bash
 npx create-expo-app@latest --template
 **Selecionar Navigation TypeScript**
 npx expo start --tunnel
+```
+
+## Arquivo de configuração:
+
+```bash
+Adicionar a pasta config na pasta **src** e adicionar o arquivo de configuração **configspreadsheets.json**
+
+Adicione o json abaixo no arquivo **configspreadsheets.json**
+
+{
+  "chaveApi": "SUACHAVE",
+  "idPlanilha": "ID DA PLANILHA",
+  "nomeAba": "ESTOQUE",
+  "range": "A2:B1000"
+}
+
+
 ```
     
 ## Funcionalidades
