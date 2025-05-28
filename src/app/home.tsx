@@ -1,62 +1,74 @@
 import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator, Alert, StyleSheet, Text } from 'react-native';
-import usePlanilha from '@/service/usespreadsheet';
-import { createTable, selectItems, insertItem } from '@/data/database';
+import useSpreadsheet from '@/service/usespreadsheet';
+import { createTable, selectItems, replaceAllItems } from '@/data/database';
 import { Item } from '@/models/Item';
 import DataList from '@/components/dataList';
 import { Button } from '@/components/button';
 
+import * as SystemUI from 'expo-system-ui';
+
+SystemUI.setBackgroundColorAsync('#262525'); // Cor da navigation bar
+
 const Home: React.FC = () => {
-  const { data, loading: loadingPlanilha } = usePlanilha();
-  const [itens, setItens] = useState<Item[]>([]);
+  const { data, loading: loadingPlanilha } = useSpreadsheet();
+  const [items, setItems] = useState<Item[]>([]);
   const [loadingDB, setLoadingDB] = useState<boolean>(false);
 
-  const carregarDadosDB = async () => {
+  const loadDataDB = async () => {
     setLoadingDB(true);
     try {
-      const resultado = await selectItems();
-      setItens(resultado);
+      const result = await selectItems();
+      setItems(result);
     } catch (error) {
       Alert.alert('Erro ao carregar dados do banco');
+      console.error(error);
     } finally {
       setLoadingDB(false);
     }
   };
 
-  const sincronizarDados = () => {
+  const syncData = async () => {
     if (data.length === 0) {
       Alert.alert('Nenhum dado na planilha para sincronizar');
       return;
     }
 
-    createTable();
+    try {
+      await createTable();
 
-    data.forEach(item => {
-      const name = item[0] || 'Sem Nome';
-      const description = item[1] || 'Sem Descrição';
-      insertItem(name, description);
-    });
+      const dataFormat: [number, string, string][] = data.map(item => [
+        Number(item[0]),      // id
+        String(item[1]),      // name
+        String(item[2]),      // price
+      ]);
 
-    Alert.alert('Dados sincronizados com sucesso');
-    carregarDadosDB();
+      await replaceAllItems(dataFormat);
+
+      Alert.alert('Dados sincronizados com sucesso');
+      loadDataDB();
+    } catch (error) {
+      Alert.alert('Erro na sincronização');
+      console.error(error);
+    }
   };
 
   useEffect(() => {
     createTable();
-    carregarDadosDB();
+    loadDataDB();
   }, []);
 
   return (
     <View style={styles.container}>
-      <Button title="Sincronizar Menu" onPress={sincronizarDados} />
+      <Button title="Sincronizar Menu" onPress={syncData} />
 
       {(loadingDB || loadingPlanilha) && <ActivityIndicator size="large" color="#0000ff" />}
 
-      {itens.length === 0 && !loadingDB && (
+      {items.length === 0 && !loadingDB && (
         <Text style={styles.text}>Nenhum item no banco</Text>
       )}
 
-      <DataList items={itens} />
+      <DataList items={items} />
     </View>
   );
 };
@@ -67,7 +79,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-
+    paddingHorizontal: 16,
   },
   text: {
     textAlign: 'center',
