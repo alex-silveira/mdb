@@ -17,7 +17,7 @@ export default function Index(){
             <View style={{ flex: 1 }}>
                 <Home></Home> 
             </View>
-            <Footer text="© 2025 Distruidora Souza Lima"/>
+            <Footer text="© 2025 Distribuidora Souza Lima"/>
         </View>
     )
 }
