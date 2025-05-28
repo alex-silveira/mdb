@@ -19,6 +19,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
+        placeholderTextColor="#888"
       />
     </View>
   );
@@ -39,5 +40,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     backgroundColor: '#fff',
+    color: "black"
   },
 });
