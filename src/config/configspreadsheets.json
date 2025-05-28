@@ -1,0 +1,6 @@
+{
+  "chaveApi": "SUA CHAVE DE API",
+  "idPlanilha": "ID DA PLANILHA DO GOOGLE SPREADSHEETS",
+  "nomeAba": "ESTOQUE",
+  "range": "A2:C1000"
+}
