@@ -33,7 +33,7 @@ npx expo start --tunnel
 
 ```bash
 
-Adicione o json abaixo no arquivo **configspreadsheets.json**
+Adicione o json abaixo no arquivo **configspreadsheets.json** no diretório src/config
 
 {
   "chaveApi": "SUACHAVE",
