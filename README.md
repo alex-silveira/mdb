@@ -32,7 +32,6 @@ npx expo start --tunnel
 ## Arquivo de configuração:
 
 ```bash
-Adicionar a pasta config na pasta **src** e adicionar o arquivo de configuração **configspreadsheets.json**
 
 Adicione o json abaixo no arquivo **configspreadsheets.json**
 
