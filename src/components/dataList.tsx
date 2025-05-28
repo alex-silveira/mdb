@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FlatList, Text, View, StyleSheet, SafeAreaView } from 'react-native';
 import { Item } from '@/models/Item';
 import SearchFilter from '@/components/filter/searchFilter';
-
+import { formatCurrencyBRL } from '@/utils/formatcurrency';
 interface Props {
   items: Item[];
 }
@@ -21,7 +21,7 @@ const DataList: React.FC<Props> = ({ items }) => {
     <SafeAreaView style={{ flex: 1 }}>
     <View style={styles.container}>
       <SearchFilter
-        placeholder="Buscar descrição..."
+        placeholder="Digita o nome do produto aqui..."
         value={search}
         onChangeText={setSearch}
       />
@@ -38,7 +38,8 @@ const DataList: React.FC<Props> = ({ items }) => {
         renderItem={({ item }) => (
           <View style={styles.row}>
             <Text style={styles.cell}>{item.name}</Text>
-            <Text style={styles.cell}>{item.price}</Text>
+            <Text style={styles.cell}>{formatCurrencyBRL(Number(item.price))}</Text>
+
           </View>
         )}
       />
