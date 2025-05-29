@@ -11,7 +11,7 @@ import * as SystemUI from 'expo-system-ui';
 SystemUI.setBackgroundColorAsync('#262525'); // Cor da navigation bar
 
 const Home: React.FC = () => {
-  const { data, loading: loadingPlanilha } = useSpreadsheet();
+  const { loading: loadingPlanilha, refetch } = useSpreadsheet();
   const [items, setItems] = useState<Item[]>([]);
   const [loadingDB, setLoadingDB] = useState<boolean>(false);
 
@@ -29,7 +29,8 @@ const Home: React.FC = () => {
   };
 
   const syncData = async () => {
-    if (data.length === 0) {
+    const updatedData = await refetch();
+    if (updatedData.length === 0) {
       Alert.alert('Nenhum dado na planilha para sincronizar');
       return;
     }
@@ -37,7 +38,7 @@ const Home: React.FC = () => {
     try {
       await createTable();
 
-      const dataFormat: [number, string, string][] = data.map(item => [
+      const dataFormat: [number, string, string][] = updatedData.map(item => [
         Number(item[0]),      // id
         String(item[1]),      // name
         String(item[2]),      // price
@@ -54,8 +55,11 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    createTable();
-    loadDataDB();
+    const init = async () => {
+      await createTable();
+      await loadDataDB();
+    };
+    init();
   }, []);
 
   return (

@@ -14,15 +14,17 @@ const usePlanilha = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
 
-  const getData = async () => {
+  const getData = async (): Promise<LineSpreadSheet[]> => {
+    setLoading(true);
     try {
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${config.idPlanilha}/values/${config.nomeAba}!${config.range}?key=${config.chaveApi}`;
       const response = await fetch(url);
       const json: SpreedSheetResponse = await response.json();
-      const linhas = json.values || [];
-      setDados(linhas);
+      const lines = json.values || [];
+      setDados(lines);
+      return lines;
     } catch (error) {
-      console.error('Erro ao buscar dados da planilha:', error);
+      return [];
     } finally {
       setLoading(false);
     }
@@ -32,7 +34,7 @@ const usePlanilha = () => {
     getData();
   }, []);
 
-  return { data, loading };
+  return { data, loading, refetch: getData };
 };
 
 export default usePlanilha;
